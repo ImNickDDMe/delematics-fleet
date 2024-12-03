@@ -1,7 +1,22 @@
+import { OpenAPIHono } from '@hono/zod-openapi';
 import { withSentry } from '@sentry/cloudflare';
-import { Hono } from 'hono';
+import { swaggerUI } from '@hono/swagger-ui';
 
-const app = new Hono<{ Bindings: Env }>();
+const app = new OpenAPIHono<{ Bindings: Env }>();
+
+app.get('/', async (c) => {
+	return c.json({ message: 'Delematics fleet API' });
+});
+
+app.get('/ui', swaggerUI({ url: '/swagger' }));
+
+app.doc('/swagger', {
+	openapi: '3.0.0',
+	info: {
+		version: '1.0.0',
+		title: 'Delematics fleet API'
+	}
+});
 
 export default withSentry(
 	(env) => ({
