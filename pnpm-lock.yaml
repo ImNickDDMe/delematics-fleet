@@ -4,6 +4,14 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+dependencies:
+  '@sentry/cloudflare':
+    specifier: ^8.42.0
+    version: 8.42.0
+  hono:
+    specifier: ^4.6.12
+    version: 4.6.12
+
 devDependencies:
   '@cloudflare/vitest-pool-workers':
     specifier: ^0.5.2
@@ -170,7 +178,6 @@ packages:
 
   /@cloudflare/workers-types@4.20241202.0:
     resolution: {integrity: sha512-ts4JD6Wih62SDmlc+OcnN1Db/DgEBcl+BUpJr7ht7pgWP81PCLyPcomgDXIeAqt2NLiOIOMMkYQZ1ZtWDo3/8A==}
-    dev: true
 
   /@cspotcode/source-map-support@0.8.1:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -788,6 +795,20 @@ packages:
     dev: true
     optional: true
 
+  /@sentry/cloudflare@8.42.0:
+    resolution: {integrity: sha512-1qJM63PSJtgkAG7dZptSpMzWohN5t0de/Vijn5u9EW1G1te85z18pumenZsgzcLC3kkrKK8eolDEfQo+WYjkLA==}
+    engines: {node: '>=14.18'}
+    dependencies:
+      '@sentry/core': 8.42.0
+    optionalDependencies:
+      '@cloudflare/workers-types': 4.20241202.0
+    dev: false
+
+  /@sentry/core@8.42.0:
+    resolution: {integrity: sha512-ac6O3pgoIbU6rpwz6LlwW0wp3/GAHuSI0C5IsTgIY6baN8rOBnlAtG6KrHDDkGmUQ2srxkDJu9n1O6Td3cBCqw==}
+    engines: {node: '>=14.18'}
+    dev: false
+
   /@types/estree@1.0.6:
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
     dev: true
@@ -1152,6 +1173,11 @@ packages:
     dependencies:
       function-bind: 1.1.2
     dev: true
+
+  /hono@4.6.12:
+    resolution: {integrity: sha512-eHtf4kSDNw6VVrdbd5IQi16r22m3s7mWPLd7xOMhg1a/Yyb1A0qpUFq8xYMX4FMuDe1nTKeMX5rTx7Nmw+a+Ag==}
+    engines: {node: '>=16.9.0'}
+    dev: false
 
   /human-signals@5.0.0:
     resolution: {integrity: sha512-AXcZb6vzzrFAUE61HnN4mpLqd/cSIwNQjtNWR0euPm6y0iqx3G4gOXaIDdtdDwZmhwe82LA6+zinmW4UBWVePQ==}

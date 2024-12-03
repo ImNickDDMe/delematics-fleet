@@ -3,6 +3,7 @@ name = "delematics-fleet"
 main = "src/index.ts"
 compatibility_date = "2024-12-02"
 compatibility_flags = ["nodejs_compat"]
+upload_source_maps = true
 
 # Workers Logs
 # Docs: https://developers.cloudflare.com/workers/observability/logs/workers-logs/
