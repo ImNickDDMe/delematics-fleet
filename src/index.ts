@@ -1,12 +1,15 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { withSentry } from '@sentry/cloudflare';
 import { swaggerUI } from '@hono/swagger-ui';
+import { broadcastRoute } from '$routes';
 
 const app = new OpenAPIHono<{ Bindings: Env }>();
 
 app.get('/', async (c) => {
 	return c.json({ message: 'Delematics fleet API' });
 });
+
+app.route('/broadcast', broadcastRoute);
 
 app.get('/ui', swaggerUI({ url: '/swagger' }));
 
