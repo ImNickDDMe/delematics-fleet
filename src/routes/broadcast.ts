@@ -1,6 +1,5 @@
-import { OpenAPIHono, createRoute } from '@hono/zod-openapi';
+import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { HTTPException } from 'hono/http-exception';
-import { GeneralSchema } from '$utils';
 import { Vehicle } from '$schemas';
 
 const router = new OpenAPIHono<{ Bindings: Env }>();
@@ -21,16 +20,16 @@ const postRoute = createRoute({
         201: {
             description: 'Successfully shares fleet location',
             content: {
-                'application/json': {
-                    schema: GeneralSchema
+                'text/plain': {
+                    schema: z.string()
                 }
             }
         },
         400: {
             description: 'Throws an error due to either invalid or insufficient data',
             content: {
-                'application/json': {
-                    schema: GeneralSchema
+                'text/plain': {
+                    schema: z.string()
                 }
             }
         }
@@ -40,12 +39,12 @@ const postRoute = createRoute({
 router.openapi(postRoute, async (c) => {
     const data = c.req.valid('json');
 
-    return c.json({ message: '' }, 201);
+    return c.text('Broadcast success', 201);
     },
     // @ts-ignore 
     (result) => {
         if (!result.success)
-            throw new HTTPException(400, { message: 'Insufficient or invalid data' });
+            throw new HTTPException(400, { message: '' });
     }
 );
 
