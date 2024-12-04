@@ -44,7 +44,7 @@ router.openapi(postRoute, async (c) => {
     // @ts-ignore 
     (result) => {
         if (!result.success)
-            throw new HTTPException(400, { message: '' });
+            throw new HTTPException(400, { message: 'Invalid or insufficient data' });
     }
 );
 

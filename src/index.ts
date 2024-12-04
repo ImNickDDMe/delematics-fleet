@@ -23,7 +23,7 @@ app.doc('/swagger', {
 
 export default withSentry(
 	(env) => ({
-		dsn: 'https://12ae506ddc136f8344052e4e8696470d@o4507242723082240.ingest.de.sentry.io/4508405183873104',
+		dsn: env.SENTRY_DSN,
 		tracesSampleRate: 1.0,
 	}),
 	{
