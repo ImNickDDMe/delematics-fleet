@@ -1,5 +1,6 @@
 import { OpenAPIHono, createRoute, z } from '@hono/zod-openapi';
 import { HTTPException } from 'hono/http-exception';
+import amqp from 'amqplib/callback_api';
 import { Vehicle } from '$schemas';
 
 const router = new OpenAPIHono<{ Bindings: Env }>();
@@ -18,7 +19,7 @@ const postRoute = createRoute({
     },
     responses: {
         201: {
-            description: 'Successfully shares fleet location',
+            description: 'Successfully shares vehicles\'s location',
             content: {
                 'text/plain': {
                     schema: z.string()
@@ -32,14 +33,36 @@ const postRoute = createRoute({
                     schema: z.string()
                 }
             }
+        },
+        500: {
+            description: 'Throws an error due to unknown conditions',
+            content: {
+                'text/plain': {
+                    schema: z.string()
+                }
+            }
         }
     }
 });
 
-router.openapi(postRoute, async (c) => {
-    const data = c.req.valid('json');
+router.openapi(
+    postRoute, 
+    async (c) => {
+        const data = c.req.valid('json');
 
-    return c.text('Broadcast success', 201);
+        amqp.connect(c.env.RABBITMQ_URL, (conError, connection) => {
+            if (conError) throw new HTTPException(500, { message: 'An unknown error occured' });
+
+            connection.createChannel((channelError, channel) => {
+                if (channelError) throw new HTTPException(500, { message: 'An unknown error occured' });
+            
+                channel.assertExchange('bus_lines', 'direct', { durable: false });
+
+                channel.publish('bus_lines', data.routeLine[0], Buffer.from(JSON.stringify(data)));
+            });
+        });
+
+        return c.text('Broadcast success', 201);
     },
     // @ts-ignore 
     (result) => {

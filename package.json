@@ -12,6 +12,8 @@
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.5.2",
     "@cloudflare/workers-types": "^4.20241202.0",
+    "@types/amqplib": "^0.10.6",
+    "@types/node": "^22.10.1",
     "typescript": "^5.5.2",
     "vitest": "2.0.5",
     "wrangler": "^3.60.3"
@@ -22,6 +24,7 @@
     "@paralleldrive/cuid2": "^2.2.2",
     "@sentry/cli": "^2.39.1",
     "@sentry/cloudflare": "^8.42.0",
+    "amqplib": "^0.10.5",
     "hono": "^4.6.12",
     "zod": "^3.23.8"
   }
